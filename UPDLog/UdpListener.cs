@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using UPDLog.DataStructures;
+using UPDLog.Messaging;
 
 namespace UPDLog
 {
@@ -8,9 +10,9 @@ namespace UPDLog
     {
         private int _listenPort;
         private volatile bool _listen;
-        private readonly ConcurrentQueue<string> _messageQueue;
+        private readonly ConcurrentQueue<RawMessage> _messageQueue;
 
-        public UdpListener(int listenPort, ref ConcurrentQueue<string> messageQueue)
+        public UdpListener(int listenPort, ref ConcurrentQueue<RawMessage> messageQueue)
         {
             _listenPort = listenPort;
             _messageQueue = messageQueue;
@@ -26,10 +28,16 @@ namespace UPDLog
             while (_listen)
             {
                 var data = udpClient.Receive(ref remoteEp);
-
                 if(data.Length <= 0) { continue; }
-                var result = System.Text.Encoding.UTF8.GetString(data);
-                _messageQueue.Enqueue(result);
+
+                var rawMessage = new RawMessage()
+                {
+                    Port = remoteEp.Port,
+                    IpAddress = remoteEp.Address,
+                    Message = System.Text.Encoding.UTF8.GetString(data)
+                };
+
+                _messageQueue.Enqueue(rawMessage);
             }
 
             udpClient.Close();
@@ -38,6 +46,13 @@ namespace UPDLog
         public void StopListening()
         {
             _listen = false;
+        }
+
+        public void UpdateListeningPort(int port)
+        {
+            //Stop listening if we are
+            _listenPort = port;
+            //Start listening if we were
         }
     }
 }

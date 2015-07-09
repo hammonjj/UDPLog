@@ -1,0 +1,37 @@
+============================================================================
+UDPLog ToDo:
+============================================================================
+Bugs
+----------------------------------------------------------------------------
+ + Fix registry key loading/creation 
+ - Add error handling in UdpListener if the port is in use
+ - If Start->Stop->Start are press too quickly, then the previous 
+   UdpListener will not have stopped listening yet and an exception is 
+   thrown
+ 
+---------------------------------------------------------------------------- 
+Refactoring
+----------------------------------------------------------------------------
+ - Make Regex definitions private class members
+ - Use root key provided in the setup methods
+ 
+----------------------------------------------------------------------------
+Cosmetic
+----------------------------------------------------------------------------
+ - Change buttons to images
+ - Finalize color scheme
+ + Find Application Icon
+ - Save settings toast message
+ 
+----------------------------------------------------------------------------
+Features 
+----------------------------------------------------------------------------
+ + Add filtering in ListView
+ + Add filtering menu
+ - Add preferences menu
+ - Load/Save Config
+	+ Filter Config
+	+ ListView visible columns/widths
+	+ Main Window Size
+ - Add "find" dialog to ListView
+ - Parse "Received" as a proper DateTime

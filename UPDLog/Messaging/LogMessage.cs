@@ -1,22 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using UPDLog.DataStructures;
 
-namespace UPDLog
+namespace UPDLog.Messaging
 {
     public class LogMessage
     {
-        public enum eSeverity
-        {
-            Unknown,
-            Error,
-            Warning,
-            Notice,
-            Info,
-            Debug
-        }
-
+        //Log Message Fields
         public string Received { get; set; } //DateTime
-        public string Severity { get; set; } //eSeverity
+        public string Severity { get; set; }
         public string HostName { get; set; }
         public string IpAddress { get; set; } //IPAddress:Port
         public string Pid { get; set; }
@@ -24,18 +17,22 @@ namespace UPDLog
         public string File { get; set; } //File(Line)
         public string Thread { get; set; }
         public string Project { get; set; }
+        public string TiError { get; set; }
         public string SocketId { get; set; }
         public string Message { get; set; }
+
+        //Regex Definitions
 
         public LogMessage()
         {
             //This empty log message is used for the insertion of a marker in the log
         }
 
-        public LogMessage(string rawMessage)
+        public LogMessage(RawMessage rawMessage)
         {
+            IpAddress = rawMessage.IpAddress + ":" + rawMessage.Port;
             var headerRegex = new Regex(@"^(.*?) - \[");
-            var headerMatch = headerRegex.Match(rawMessage);
+            var headerMatch = headerRegex.Match(rawMessage.Message);
             if(headerMatch.Success)
             {
                 var header = headerMatch.Value;
@@ -43,7 +40,7 @@ namespace UPDLog
             }
 
             var metaDataRegex = new Regex(@"\[(.*?)\]");
-            var metaDataMatch = metaDataRegex.Match(rawMessage);
+            var metaDataMatch = metaDataRegex.Match(rawMessage.Message);
             if(metaDataMatch.Success)
             {
                 var metaData = metaDataMatch.Value.Remove(0, 1);
@@ -52,7 +49,7 @@ namespace UPDLog
             }
 
             var messageRegex = new Regex(@"] *([^\n\r]*)");
-            var messageMatch = messageRegex.Match(rawMessage);
+            var messageMatch = messageRegex.Match(rawMessage.Message);
             if(messageMatch.Success)
             {
                 Message = messageMatch.Value.Remove(0, 2);
@@ -78,18 +75,52 @@ namespace UPDLog
         private void ParseHeaderData(string header)
         {
             var splitHeader = header.Split(' ');
-            Severity = ParseSeverity(splitHeader[0]);
-            Received = splitHeader[1];
-            HostName = splitHeader[2];
-            Process = splitHeader[3];
-            Pid = splitHeader[4];
-            //TiError = splitHeader[5]; => Isn't always included
+            try
+            {
+                Severity = ParseSeverity(splitHeader[0]);
+                Received = splitHeader[1];
+                HostName = splitHeader[2];
+                Process = splitHeader[3];
+                Pid = splitHeader[4];
+                TiError = splitHeader[5];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                //Swallow the exception.  We take the lazy way out and just check for all of the normal log
+                //message fields instead of finding out how big the array is an dealing with it
+            }
+            
         }
 
-        private string ParseSeverity(string rawSeverity)
+        private static string ParseSeverity(string rawSeverity)
         {
-            if (rawSeverity.Contains("<11>")) { }
-            return rawSeverity;
+            var severityRegex = new Regex("<(.*?)>");
+            var severityMatch = severityRegex.Match(rawSeverity);
+
+            string severity;
+            switch (severityMatch.Value)
+            {
+                case "<11>":
+                    severity = "Error";
+                    break;
+                case "<12>":
+                    severity = "Warning";
+                    break;
+                case "<13>":
+                    severity = "Notice";
+                    break;
+                case "<14>":
+                    severity = "Info";
+                    break;
+                case "<15>":
+                    severity = "Debug";
+                    break;
+                default:
+                    severity = "Unknown: " + rawSeverity;
+                    break;
+            }
+
+            return severity;
         }
 
         private void ParseMetaData(string metaData)
