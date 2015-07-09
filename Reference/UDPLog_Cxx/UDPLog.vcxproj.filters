@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{7c8256d1-7315-46a4-81f0-44212a7b75bb}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{48ede78e-5b81-4c8a-a0a9-ad940118fcf3}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Boilerplate">
+      <UniqueIdentifier>{fd83b0f9-002f-44e3-8435-3a302e4182da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network Thread">
+      <UniqueIdentifier>{2a5a4141-85b2-4b9c-aee1-6d8c88b1285a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI Thread">
+      <UniqueIdentifier>{62b02552-efc8-4188-9de0-85229d2e1492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Message Container">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{40b70d15-da79-48c8-9498-519eae743de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Message Parsing">
+      <UniqueIdentifier>{b699c108-0453-4653-aaf8-7c7af09e4251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Message Parsing\Aventura Message Parser">
+      <UniqueIdentifier>{4abddf96-2a38-47b5-8552-c3546ecfd737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log Message">
+      <UniqueIdentifier>{01298186-c089-4bfb-a2a5-a1c88db80e87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_udplog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_udplog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_udplog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Boilerplate</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Boilerplate</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkListener.cpp">
+      <Filter>Network Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="udplog.cpp">
+      <Filter>UI Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NetworkListener.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMessageContainer.cpp">
+      <Filter>Message Container</Filter>
+    </ClCompile>
+    <ClCompile Include="AventuraMessageParser.cpp">
+      <Filter>Message Parsing\Aventura Message Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="LogMessage.cpp">
+      <Filter>Log Message</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_udplog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Boilerplate</Filter>
+    </ClInclude>
+    <ClInclude Include="QtUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessageContainer.h">
+      <Filter>Message Container</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMessageContainer.h">
+      <Filter>Message Container</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessageParser.h">
+      <Filter>Message Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="AventuraMessageParser.h">
+      <Filter>Message Parsing\Aventura Message Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="ILogMessage.h">
+      <Filter>Log Message</Filter>
+    </ClInclude>
+    <ClInclude Include="LogMessage.h">
+      <Filter>Log Message</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="udplog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="udplog.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="udplog.h">
+      <Filter>UI Thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="NetworkListener.h">
+      <Filter>Network Thread</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UDPLog.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

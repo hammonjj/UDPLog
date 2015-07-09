@@ -1,0 +1,10 @@
+TextSaveFile = ""
+COM port number = 0
+Server IP = ""
+Use scroll accelerator = 0
+Server UDP port = 61234
+Main window font height = -13
+Main window font weight = 400
+Main window font face = "Courier"
+Allow popups = 0
+History buffer size (lines) = 10000
