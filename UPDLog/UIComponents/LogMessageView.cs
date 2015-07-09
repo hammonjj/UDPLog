@@ -2,16 +2,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+
 using Microsoft.Win32;
 
 namespace UPDLog.UIComponents
 {
-    
-
     public class LogMessageView : ListView
     {
-        private ItemCollection _hiddenColumns;
+        //private ItemCollection _hiddenColumns;
         public void LoadConfig(RegistryKey key)
         {    
         }

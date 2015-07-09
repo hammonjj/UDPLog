@@ -20,47 +20,12 @@
             </DockPanel>
         </Grid>
         <Grid>
-            <Button Content="Start" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="57" Click="ListenClicked" Name="btnStart"/>
-            <Button Content="Stop" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="57" Click="StopListeningClicked" Name="btnStop"/>
-            <Button Content="Clear" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="57" Click="ClearLogClicked" Name="btnClear"/>
-            <Button Content="Filter" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="57" Click="ApplyFilterClicked" Name="btnFilter"/>
-            <Button Content="Marker" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="57" Click="AddMarkerClicked" Name="btnMarker"/>
+            <Button Content="Start" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="57" Click="ListenClicked" Name="btnStart" RenderTransformOrigin="0.592,-1.355"/>
+            <Button Content="Stop" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="57" Click="StopListeningClicked" Name="btnStop"/>
+            <Button Content="Clear" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="57" Click="ClearLogClicked" Name="btnClear"/>
+            <Button Content="Filter" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="57" Click="ApplyFilterClicked" Name="btnFilter"/>
+            <Button Content="Marker" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="57" Click="AddMarkerClicked" Name="btnMarker"/>
         </Grid>
-<!--
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="ListViewItem">
-                    <Style.Triggers>
-                        <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
-                            <Setter Property="Background" Value="LightBlue" />
-                        </Trigger>
-                        <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
-                            <Setter Property="Background" Value="LightGray" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Resources>
-            <ListView Margin="80,25,10,10" Name="LvLogMessages" ContextMenuOpening="ContextMenuOpen" AlternationCount="2" KeyDown="ViewKeyDown">
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                    </ContextMenu>
-                </ListView.ContextMenu>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Received" Width="180" DisplayMemberBinding="{Binding Received}" />
-                        <GridViewColumn Header="Severity" Width="50" DisplayMemberBinding="{Binding Severity}" />
-                        <GridViewColumn Header="HostName" Width="110" DisplayMemberBinding="{Binding HostName}" />
-                        <GridViewColumn Header="IP Address" Width="75" DisplayMemberBinding="{Binding IpAddress}" />
-                        <GridViewColumn Header="Process" Width="120" DisplayMemberBinding="{Binding Process}" />
-                        <GridViewColumn Header="File" Width="175" DisplayMemberBinding="{Binding File}" />
-                        <GridViewColumn Header="Thread" Width="120" DisplayMemberBinding="{Binding Thread}" />
-                        <GridViewColumn Header="Project" Width="110" DisplayMemberBinding="{Binding Project}" />
-                        <GridViewColumn Header="Message" Width="400" DisplayMemberBinding="{Binding Message}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
-        -->
         <Grid>
             <Grid.Resources>
                 <Style TargetType="ListViewItem">
@@ -77,8 +42,8 @@
             <uiComponents:LogMessageView Margin="80,25,10,10" x:Name="LvCustomTest" AlternationCount="2" >
                 <uiComponents:LogMessageView.View>
                     <GridView>
-                        <GridViewColumn Header="Received2" Width="180" DisplayMemberBinding="{Binding Received}" />
-                        <GridViewColumn Header="Severity2" Width="50" DisplayMemberBinding="{Binding Severity}" />
+                        <GridViewColumn Header="Received" Width="180" DisplayMemberBinding="{Binding Received}" />
+                        <GridViewColumn Header="Severity" Width="50" DisplayMemberBinding="{Binding Severity}" />
                         <GridViewColumn Header="HostName" Width="110" DisplayMemberBinding="{Binding HostName}" />
                         <GridViewColumn Header="IP Address" Width="75" DisplayMemberBinding="{Binding IpAddress}" />
                         <GridViewColumn Header="Process" Width="120" DisplayMemberBinding="{Binding Process}" />

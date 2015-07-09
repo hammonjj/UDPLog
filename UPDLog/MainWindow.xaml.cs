@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Timers;
 using System.Windows;
 using System.Threading;
@@ -111,12 +113,24 @@ namespace UPDLog
 #endif
         }
 
-        private void SaveLogClicked(object sender, RoutedEventArgs e) 
+        private void SaveLogClicked(object sender, RoutedEventArgs e)
         {
-#if false
-            window2 win2= new window2();
-            win2.Show();
-#endif
+            var logMessages = new StringBuilder();
+            foreach(var item in LvCustomTest.Items)
+            {
+                logMessages.AppendLine(item.ToString());
+            }
+
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "Text File (*.txt)|*.txt"
+            };
+
+            var showDialog = saveFileDialog.ShowDialog();
+            if(showDialog != null && (bool)showDialog)
+            {
+                File.WriteAllText(saveFileDialog.FileName, logMessages.ToString());
+            }
         }
 
         private void ExitClicked(object sender, RoutedEventArgs e)

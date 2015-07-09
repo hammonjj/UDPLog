@@ -78,13 +78,18 @@ namespace UPDLog
         private void ParseHeaderData(string header)
         {
             var splitHeader = header.Split(' ');
-            Severity = splitHeader[0];
+            Severity = ParseSeverity(splitHeader[0]);
             Received = splitHeader[1];
             HostName = splitHeader[2];
             Process = splitHeader[3];
             Pid = splitHeader[4];
             //TiError = splitHeader[5]; => Isn't always included
+        }
 
+        private string ParseSeverity(string rawSeverity)
+        {
+            if (rawSeverity.Contains("<11>")) { }
+            return rawSeverity;
         }
 
         private void ParseMetaData(string metaData)

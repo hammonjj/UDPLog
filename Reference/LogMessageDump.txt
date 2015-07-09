@@ -1,0 +1,9 @@
+R[127.0.0.1:63429]: <14>1 2015-06-13T14:44:30.0430-7:00 TS-JH2.dev.local AVSMProxySvc.exe 1192 - [AventuraMetaData@41909 file="MessageClientImpl.cpp" thread="1364" line="456" project="ThreadPool" SocketId="000000001BB29A40"] Closing socket
+
+<14>1 2015-06-13T14:44:30.0430-7:00 TS-JH2.dev.local AVSMProxySvc.exe 1192 - [AventuraMetaData@41909 file="MessageClientImpl.cpp" thread="1364" line="456" project="ThreadPool" SocketId="000000001BB29A40"] Closing socket
+
+<11> => Error
+<12> => Warn
+<13> => Notic
+<14> => Info
+<15> => Debug
