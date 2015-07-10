@@ -65,6 +65,8 @@
     </Grid>
 </Window>
     <!--
+    http://stackoverflow.com/questions/2491941/wpf-tristate-image-button/3676177#3676177
+    http://stackoverflow.com/questions/1261908/wpf-how-to-create-image-button-with-template
 <Button x:Class="TestWpfApplication.ThreeStateImageButton"
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
