@@ -40,7 +40,29 @@ namespace UPDLog.Utilities
 
                 selectedItem = VisualTreeHelper.GetParent(selectedItem);
             }
-            return selectedItem != null ? ((ListViewItem)selectedItem) : null;
+
+            return (ListViewItem) selectedItem;
+        }
+
+        public static FrameworkElement GetLastVisibleElement(this ListView listView)
+        {
+            double height = listView.ActualHeight;
+
+            double currentHeight = 0;
+            FrameworkElement previous = null;
+
+            foreach (FrameworkElement item in listView.Items)
+            {
+                currentHeight += item.ActualHeight;
+                if (currentHeight > height)
+                {
+                    return previous;
+                }
+
+                previous = item;
+            }
+
+            return previous;
         }
     }
 }

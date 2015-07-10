@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UPDLog.DataStructures;
-using UPDLog.Messaging;
 
 namespace UDPLogUnitTests
 {

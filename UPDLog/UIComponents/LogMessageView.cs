@@ -5,11 +5,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Windows.Media;
 using Microsoft.Win32;
 
 using UPDLog.DataStructures;
-using UPDLog.Messaging;
 using UPDLog.Utilities;
 
 namespace UPDLog.UIComponents
@@ -17,12 +16,24 @@ namespace UPDLog.UIComponents
     public class LogMessageView : ListView
     {
         private RegistryKey _root;
-        private readonly LogFilterRule _logFilterRule = new LogFilterRule();
+        private ScrollViewer _scrollViewer; 
         private readonly ContextMenu _contextMenu = new ContextMenu();
+        private readonly LogFilterRule _logFilterRule = new LogFilterRule();
+#if false
+        static LogMessageView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(LogMessageView), 
+                new FrameworkPropertyMetadata(typeof(LogMessageView)));
+        }
 
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new LogMessageViewItem();
+        }
+#endif
         public void LoadConfig(RegistryKey key)
         {
-            ContextMenu = _contextMenu;
             _root = key;
 
             using (var logMessageViewKey = _root.GetOrCreateRegistryKey(@"Interface\LogMessageView", true))
@@ -35,6 +46,8 @@ namespace UPDLog.UIComponents
                     column.Width = Convert.ToDouble(colWidth);
                 }
             }
+
+            BuildContextMenu();
         }
 
         public void SaveConfig()
@@ -56,8 +69,31 @@ namespace UPDLog.UIComponents
         public void AddLogMessage(LogMessage lm)
         {
             Items.Add(lm);
-            if (FilterEnabled()) { Items.Filter = FilterMessage; }
+
+            if (_scrollViewer != null &&
+                _scrollViewer.VerticalOffset.Equals(_scrollViewer.ScrollableHeight))
+            {
+                _scrollViewer.ScrollToBottom(); 
+            }
+            
+            if (FilterEnabled()) { Items.Filter = ShowMessage; }
         }
+
+        public override void OnApplyTemplate()  
+        {  
+            base.OnApplyTemplate();  
+  
+            //Store a reference to the internal ScrollViewer for sticky scrolling
+            _scrollViewer = RecursiveVisualChildFinder<ScrollViewer>(this) as ScrollViewer;  
+        }
+
+        private static DependencyObject RecursiveVisualChildFinder<T>(DependencyObject rootObject)
+        {
+            var child = VisualTreeHelper.GetChild(rootObject, 0);
+            if (child == null) { return null; }
+
+            return child.GetType() == typeof(T) ? child : RecursiveVisualChildFinder<T>(child);
+        }  
 
         public void ApplyFilter(bool enable)
         {
@@ -88,21 +124,24 @@ namespace UPDLog.UIComponents
                 _logFilterRule.Content = activeFilterKey.GetValue("FilterContent", "").ToString();
             }
 
-            Items.Filter = FilterMessage;
+            Items.Filter = ShowMessage;
         }
 
-        public bool FilterMessage(object obj)
+        public bool ShowMessage(object obj)
         {
             var lm = obj as LogMessage;
 
-            if (lm == null) { return false; }
+            if (lm == null) { return true; }
             var propertyColumn = lm.GetType().GetProperty(_logFilterRule.Column);
 
+            if (propertyColumn.GetValue(lm, null) == null) { return true; }
+
+            //Parse filter action text
             switch (_logFilterRule.Action)
             {
                 case "Like":
                     var likeRegex = new Regex(_logFilterRule.Content);
-                    return likeRegex.Match((string) propertyColumn.GetValue(lm, null)).Success;
+                    return likeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
                 case "Not Like":
                     var notLikeRegex = new Regex(_logFilterRule.Content);
                     return !notLikeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
@@ -111,21 +150,12 @@ namespace UPDLog.UIComponents
                 case "Not Equal To":
                     return (string)propertyColumn.GetValue(lm, null) != _logFilterRule.Content;
                 case "Greater Than":
-                    return false;
+                    return true;
                 case "Less Than":
-                    return false;
+                    return true;
             }
 
             return false;
-        }
-
-        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
-        {
-            var item = this.GetGenericItemAt(Mouse.GetPosition(this));
-            if (item is GridViewColumnHeader)
-            {
-                BuildContextMenu();
-            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -143,7 +173,7 @@ namespace UPDLog.UIComponents
 
         private void BuildContextMenu()
         {
-            _contextMenu.Items.Clear();
+            ContextMenu = _contextMenu;
             foreach (var col in ((GridView)View).Columns)
             {
                 var menuItem = new MenuItem()
@@ -161,6 +191,7 @@ namespace UPDLog.UIComponents
         void ColumnHeaderClicked(object sender, RoutedEventArgs e)
         {
             var menuItem = sender as MenuItem;
+            if (menuItem == null) { return; }
             var col = ((GridView) View).Columns.First(x => x.Header == menuItem.Header);
             if (col == null) { return; }
 

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using UPDLog.DataStructures;
 
-namespace UPDLog.Messaging
+namespace UPDLog.DataStructures
 {
     public class LogMessage
     {
         //Log Message Fields
-        public string Received { get; set; } //DateTime
+        public string Received { get; set; }    //DateTime
         public string Severity { get; set; }
         public string HostName { get; set; }
-        public string IpAddress { get; set; } //IPAddress:Port
+        public string IpAddress { get; set; }   //IPAddress:Port
         public string Pid { get; set; }
         public string Process { get; set; }
-        public string File { get; set; } //File(Line)
+        public string File { get; set; }        //File(Line)
         public string Thread { get; set; }
         public string Project { get; set; }
         public string TiError { get; set; }

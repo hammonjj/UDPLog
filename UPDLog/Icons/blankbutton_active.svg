@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.2, SVG Export Plug-In  -->
+<!DOCTYPE svg [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.2" baseProfile="tiny"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" xml:space="preserve">
+<defs>
+</defs>
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32.0005" y1="0.501" x2="32.0005" y2="63.5">
+		<stop  offset="0" style="stop-color:#5FFFBF"/>
+		<stop  offset="1" style="stop-color:#296D52"/>
+	</linearGradient>
+	<polygon fill="url(#SVGID_1_)" points="63.5,63.5 0.501,63.5 0.501,0.501 63.5,0.501 63.5,63.5 	"/>
+	<g>
+		<path fill="#1A1A1A" d="M64,0v64H0V0H64 M63,1H1v62h62V1L63,1z"/>
+	</g>
+</g>
+<g>
+	<rect x="2" y="2" fill="#5FFFBF" width="60" height="26.666"/>
+</g>
+</svg>

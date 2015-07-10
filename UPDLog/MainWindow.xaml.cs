@@ -10,7 +10,6 @@ using System.Collections.Concurrent;
 using Microsoft.Win32;
 
 using UPDLog.DataStructures;
-using UPDLog.Messaging;
 using UPDLog.Utilities;
 using UPDLog.Windows;
 
@@ -129,7 +128,11 @@ namespace UPDLog
         private void FilterConfigClicked(object sender, RoutedEventArgs e)
         {
             var filterConfigKey = _root.GetOrCreateRegistryKey("Filters", true);
-            var filterConfig = new FilterConfig(filterConfigKey);
+            var filterConfig = new FilterConfig(filterConfigKey)
+            {
+                Owner = this
+            };
+
             filterConfig.Show();
         }
 

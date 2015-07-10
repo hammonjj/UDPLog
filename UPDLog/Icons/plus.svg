@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 13.0.2, SVG Export Plug-In  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   x="0px"
+   y="0px"
+   width="38px"
+   height="38px"
+   viewBox="-0.05 -0.07 38 38"
+   xml:space="preserve"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="plus.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"><metadata
+   id="metadata9"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+   inkscape:window-height="827"
+   inkscape:window-width="1304"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   guidetolerance="10.0"
+   gridtolerance="10.0"
+   objecttolerance="10.0"
+   borderopacity="1.0"
+   bordercolor="#666666"
+   pagecolor="#ffffff"
+   id="base"
+   showgrid="false"
+   inkscape:zoom="12.157895"
+   inkscape:cx="3.9069266"
+   inkscape:cy="19"
+   inkscape:window-x="110"
+   inkscape:window-y="99"
+   inkscape:current-layer="svg2"
+   inkscape:window-maximized="0" />
+<defs
+   id="defs4"><inkscape:perspective
+   sodipodi:type="inkscape:persp3d"
+   inkscape:vp_x="0 : 19 : 1"
+   inkscape:vp_y="0 : 1000 : 0"
+   inkscape:vp_z="38 : 19 : 1"
+   inkscape:persp3d-origin="19 : 12.666667 : 1"
+   id="perspective11" />
+</defs>
+<path
+   d="m 33.9696,14.0777 v 9.5776 L 23.64,23.6537 23.656,33.9705 14.0624,33.9849 V 23.6537 l -10.288,0.0416 0.0016,-9.66 10.2608,0.0144 -0.0016,-10.2736 9.6472,0.0128 -0.0424,10.2872 10.3296,0.0016 z"
+   id="path6"
+   style="fill:#5fffbf;fill-opacity:1" />
+</svg>

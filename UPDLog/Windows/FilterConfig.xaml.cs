@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using Microsoft.Win32;
-using UPDLog.Messaging;
+using UPDLog.DataStructures;
 
 namespace UPDLog.Windows
 {
