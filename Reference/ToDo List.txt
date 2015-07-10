@@ -8,6 +8,8 @@ Bugs
  - If Start->Stop->Start are press too quickly, then the previous 
    UdpListener will not have stopped listening yet and an exception is 
    thrown
+- Deal with listener thread stopping on application exit
+- Profile for handle leaks, especially RegistryKey and Thread handles
  
 ---------------------------------------------------------------------------- 
 Refactoring
