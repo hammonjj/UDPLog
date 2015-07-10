@@ -2,7 +2,6 @@
 using System.Net.Sockets;
 using System.Collections.Concurrent;
 using UPDLog.DataStructures;
-using UPDLog.Messaging;
 
 namespace UPDLog
 {

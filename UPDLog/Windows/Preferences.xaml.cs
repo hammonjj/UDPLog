@@ -17,11 +17,14 @@ namespace UPDLog.Windows
     /// <summary>
     /// Interaction logic for Preferences.xaml
     /// </summary>
-    public partial class Preferences : Window
+    public partial class Preferences
     {
         public Preferences()
         {
             InitializeComponent();
+
+            //Style Sheet
+            //Listening Port
         }
     }
 }

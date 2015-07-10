@@ -33,12 +33,6 @@ namespace UPDLog.UIComponents
 
                     if (colWidth == null) { break; }
                     column.Width = Convert.ToDouble(colWidth);
-
-                    var colVisible = Convert.ToBoolean(logMessageViewKey.GetValue(column.Header + "Visible"));
-                    if (!colVisible)
-                    {
-                        column.Width = 0;
-                    }
                 }
             }
         }
@@ -50,7 +44,6 @@ namespace UPDLog.UIComponents
                 foreach (var column in ((GridView)View).Columns)
                 {
                     logMessageViewKey.SetValue(column.Header + "Width", column.Width);
-                    logMessageViewKey.SetValue(column.Header + "Visible", column.Width > 0);
                 }
             }
         }

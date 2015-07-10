@@ -78,7 +78,7 @@ namespace UPDLog.Messaging
             try
             {
                 Severity = ParseSeverity(splitHeader[0]);
-                Received = splitHeader[1];
+                Received = Convert.ToDateTime(splitHeader[1]).ToString();
                 HostName = splitHeader[2];
                 Process = splitHeader[3];
                 Pid = splitHeader[4];

@@ -11,6 +11,7 @@ using Microsoft.Win32;
 
 using UPDLog.DataStructures;
 using UPDLog.Messaging;
+using UPDLog.Utilities;
 using UPDLog.Windows;
 
 namespace UPDLog
@@ -127,7 +128,7 @@ namespace UPDLog
 
         private void FilterConfigClicked(object sender, RoutedEventArgs e)
         {
-            var filterConfigKey = _root.OpenSubKey("Filters", true);
+            var filterConfigKey = _root.GetOrCreateRegistryKey("Filters", true);
             var filterConfig = new FilterConfig(filterConfigKey);
             filterConfig.Show();
         }
@@ -205,6 +206,10 @@ namespace UPDLog
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //Stop Listening Thread
+            _updListener.StopListening();
+            _messagePumpTimer.Enabled = false;
+
             //Save Config
             LvLogMessages.SaveConfig();
             _root.SetValue("WindowWidth", Width);
@@ -212,6 +217,7 @@ namespace UPDLog
 
             //Close Registry Handle
             _root.Close();
+            //_udpListenerThread.Join();
         }
     }
 }
