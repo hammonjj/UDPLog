@@ -1,2 +1,2 @@
 language: csharp
-solution: UDPLog.sln
+solution: UDPLog/UDPLog.sln
