@@ -45,7 +45,7 @@ namespace UPDLog
             LvLogMessages.LoadConfig(_root);
 
             //Temporary
-            DefaultButtonBackground = btnFilter.Background;
+            DefaultButtonBackground = BtnFilter.Background;
         }
 
         private void PumpMessageQueue(object sender, ElapsedEventArgs e)
@@ -83,14 +83,14 @@ namespace UPDLog
             _udpListenerThread = new Thread(_updListener.BeginListening);
             _udpListenerThread.Start();
             _messagePumpTimer.Enabled = true;
-            btnStart.IsEnabled = false;
+            BtnStart.IsEnabled = false;
         }
 
         private void StopListeningClicked(object sender, RoutedEventArgs e)
         {
             _updListener.StopListening();
             _messagePumpTimer.Enabled = false;
-            btnStart.IsEnabled = true;
+            BtnStart.IsEnabled = true;
         }
 
         private void ClearLogClicked(object sender, RoutedEventArgs e)
@@ -102,12 +102,12 @@ namespace UPDLog
         {
             if (LvLogMessages.FilterEnabled())
             {
-                btnFilter.Background = DefaultButtonBackground;
+                BtnFilter.Background = DefaultButtonBackground;
                 LvLogMessages.ApplyFilter(false);
             }
             else
             {
-                btnFilter.Background = Brushes.Blue;
+                BtnFilter.Background = Brushes.Blue;
                 LvLogMessages.ApplyFilter(true);
             }
         }

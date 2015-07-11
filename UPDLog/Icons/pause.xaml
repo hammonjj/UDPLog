@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Canvas x:Key="pause_icon" Name="svg3336" Width="64" Height="64" Canvas.Left="0" Canvas.Top="0">
+        <Canvas.RenderTransform>
+            <TranslateTransform X="0" Y="0"/>
+        </Canvas.RenderTransform>
+        <Canvas.Resources/>
+        <!--Unknown tag: metadata-->
+        <!--Unknown tag: sodipodi:namedview-->
+        <Canvas Name="g3340">
+            <Polygon xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="30.008,44.317 17.508,44.317 17.508,17.538 30.008,17.538 30.008,44.317  " Name="polygon3342" FillRule="NonZero" Fill="#FF4D4D4D"/>
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3344" Fill="#FF4D4D4D">
+                <Path.Data>
+                    <PathGeometry Figures="M30.547 17v27.857H16.97V17H30.547 M29.47 18.077H18.046V43.78H29.47V18.077L29.47 18.077z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+        </Canvas>
+        <Canvas Name="g3346">
+            <Polygon xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="46.431,44.317 33.932,44.317 33.932,17.538 46.431,17.538 46.431,44.317  " Name="polygon3348" FillRule="NonZero" Fill="#FF4D4D4D"/>
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3350" Fill="#FF4D4D4D">
+                <Path.Data>
+                    <PathGeometry Figures="M46.97 17v27.857H33.393V17H46.97 M45.893 18.077H34.47V43.78h11.423V18.077L45.893 18.077z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Canvas>
+
+</ResourceDictionary>

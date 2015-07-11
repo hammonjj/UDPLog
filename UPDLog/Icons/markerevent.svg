@@ -8,7 +8,7 @@
 	 x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
 <defs>
 </defs>
-<path fill="#E6E6E6" d="M19.787,7.976l-7.199,50.373l1.063-0.03L24.105,8.076L19.787,7.976z M40.773,13.506l0.521-2.497H26.229
+<path fill="#4D4D4D" d="M19.787,7.976l-7.199,50.373l1.063-0.03L24.105,8.076L19.787,7.976z M40.773,13.506l0.521-2.497H26.229
 	l-4.35,20.314h14.479l-0.535,2.497h15.172l4.244-20.314H40.773z"/>
-<rect opacity="0" fill="#FFFFFF" width="64" height="64"/>
+<rect opacity="0" fill="#4D4D4D" width="64" height="64"/>
 </svg>

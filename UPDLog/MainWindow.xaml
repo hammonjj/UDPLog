@@ -19,18 +19,58 @@
                 </Menu>
             </DockPanel>
         </Grid>
-        <Grid>
-            <Button Content="Start" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="57" Click="ListenClicked" Name="btnStart" RenderTransformOrigin="0.592,-1.355"/>
-            <Button Content="Stop" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="57" Click="StopListeningClicked" Name="btnStop"/>
-            <Button Content="Clear" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="57" Click="ClearLogClicked" Name="btnClear"/>
-            <Button Content="Filter" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="57" Click="ApplyFilterClicked" Name="btnFilter"/>
-            <Button Content="Marker" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="57" Click="AddMarkerClicked" Name="btnMarker"/>
-        </Grid>
+        <StackPanel>
+            <Button 
+                Content="{StaticResource StartIcon}"
+                HorizontalAlignment="Left" 
+                Margin="10,31,0,0" 
+                VerticalAlignment="Top" 
+                Width="28" 
+                Height="28" 
+                Click="ListenClicked" 
+                Name="BtnStart" />
+
+            <Button HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="StopListeningClicked" Name="BtnStop">
+                <Grid>
+                    <Image 
+                		Source="Icons\plus.png" 
+                		Width="28" Height="28"
+                		HorizontalAlignment="Center"
+                		VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="28" Height="28"  Click="ClearLogClicked" Name="BtnClear">
+                <Grid>
+                    <Image 
+                		Source="Icons\plus.png" 
+                		Width="28" Height="28"
+                		HorizontalAlignment="Center"
+                		VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="ApplyFilterClicked" Name="BtnFilter">
+                <Grid>
+                    <Image 
+                		Source="Icons\plus.png" 
+                		Width="28" Height="28"
+                		HorizontalAlignment="Center"
+                		VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="AddMarkerClicked" Name="BtnMarker">
+                <Grid>
+                    <Image 
+                		Source="Icons\plus.png" 
+                		Width="28" Height="28"
+                		HorizontalAlignment="Center"
+                		VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+        </StackPanel>
         <Grid>
             <Grid.Resources>
                 <Style TargetType="ListViewItem">
-                    <!-- <Style TargetType="ListViewItem">-->
-                    <!-- <Style TargetType="uiComponents:LogMessageView">-->
+                <!-- <Style TargetType="uiComponents:LogMessageView">-->
                     <Style.Triggers>
                         <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
                             <Setter Property="Background" Value="LightBlue" />
@@ -41,8 +81,9 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>
+            <!-- ItemContainerStyle="{StaticResource ItemContStyle}"-->
             <uiComponents:LogMessageView 
-                Margin="80,25,10,10" 
+                Margin="50,25,10,10" 
                 x:Name="LvLogMessages" 
                 AlternationCount="2" 
                 ScrollViewer.HorizontalScrollBarVisibility="Visible">
@@ -58,36 +99,15 @@
                         <GridViewColumn Header="Project" Width="110" DisplayMemberBinding="{Binding Project}" />
                         <GridViewColumn Header="TI Error" Width="110" DisplayMemberBinding="{Binding TiError}" />
                         <GridViewColumn Header="Message" Width="400" DisplayMemberBinding="{Binding Message}" />
+                        <GridViewColumn Header="Raw Message" Width="400" DisplayMemberBinding="{Binding RawMessage}" />
                     </GridView>
                 </uiComponents:LogMessageView.View>
             </uiComponents:LogMessageView>
         </Grid>
     </Grid>
 </Window>
-    <!--
-    http://stackoverflow.com/questions/2491941/wpf-tristate-image-button/3676177#3676177
-    http://stackoverflow.com/questions/1261908/wpf-how-to-create-image-button-with-template
-<Button x:Class="TestWpfApplication.ThreeStateImageButton"
-   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Button.Template>
-        <ControlTemplate TargetType="{x:Type Button}">
-            <Grid>
-                <Image Name="Normal" Source="Resources/Normal.png"/>
-                <Image Name="Pressed" Source="Resources/Pressed.png" Visibility="Hidden"/>
-                <Image Name="Disabled" Source="Resources/Disabled.png" Visibility="Hidden"/>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                    <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                    <Setter TargetName="Disabled" Property="Visibility" Value="Visible"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-    </Button.Template>
-</Button>
+    
+<!--
+http://stackoverflow.com/questions/2491941/wpf-tristate-image-button/3676177#3676177
+http://stackoverflow.com/questions/1261908/wpf-how-to-create-image-button-with-template
 -->

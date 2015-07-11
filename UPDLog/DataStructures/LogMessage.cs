@@ -19,6 +19,7 @@ namespace UPDLog.DataStructures
         public string TiError { get; set; }
         public string SocketId { get; set; }
         public string Message { get; set; }
+        public string RawMessage { get; set; } //For debugging purposes
 
         //Regex Definitions
 
@@ -29,6 +30,7 @@ namespace UPDLog.DataStructures
 
         public LogMessage(RawMessage rawMessage)
         {
+            RawMessage = rawMessage.Message;
             IpAddress = rawMessage.IpAddress + ":" + rawMessage.Port;
             var headerRegex = new Regex(@"^(.*?) - \[");
             var headerMatch = headerRegex.Match(rawMessage.Message);
