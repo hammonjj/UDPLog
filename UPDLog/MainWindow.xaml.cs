@@ -21,7 +21,7 @@ namespace UPDLog
     public partial class MainWindow
     {
         //Temporary until the button styles are changed
-        private readonly Brush DefaultButtonBackground;
+        private readonly Brush _defaultButtonBackground;
 
         private readonly RegistryKey _root;
         private Thread _udpListenerThread;
@@ -35,8 +35,8 @@ namespace UPDLog
             InitializeComponent();
 
             //Load Config
-            _root = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Aventura\UdpLog", true) ??
-                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Aventura\UdpLog");
+            _root = Registry.LocalMachine.GetOrCreateRegistryKey(
+                @"SOFTWARE\Wow6432Node\Aventura\UdpLog", true);
 
             SetupUdpListener();
             SetupMessageQueueTimer();
@@ -45,14 +45,14 @@ namespace UPDLog
             LvLogMessages.LoadConfig(_root);
 
             //Temporary
-            DefaultButtonBackground = BtnFilter.Background;
+            _defaultButtonBackground = BtnFilter.Background;
         }
 
         private void PumpMessageQueue(object sender, ElapsedEventArgs e)
         {
             if(_messageQueue.IsEmpty) { return; }
             
-            //Disable timer so we don't bind up the main thread
+            //Disable timer so we don't bind up the gui thread
             _messagePumpTimer.Enabled = false;
 
             RawMessage message;
@@ -84,6 +84,7 @@ namespace UPDLog
             _udpListenerThread.Start();
             _messagePumpTimer.Enabled = true;
             BtnStart.IsEnabled = false;
+            LvLogMessages.Focus();
         }
 
         private void StopListeningClicked(object sender, RoutedEventArgs e)
@@ -91,18 +92,20 @@ namespace UPDLog
             _updListener.StopListening();
             _messagePumpTimer.Enabled = false;
             BtnStart.IsEnabled = true;
+            LvLogMessages.Focus();
         }
 
         private void ClearLogClicked(object sender, RoutedEventArgs e)
         {
             LvLogMessages.Items.Clear();
+            LvLogMessages.Focus();
         }
 
         private void ApplyFilterClicked(object sender, RoutedEventArgs e)
         {
             if (LvLogMessages.FilterEnabled())
             {
-                BtnFilter.Background = DefaultButtonBackground;
+                BtnFilter.Background = _defaultButtonBackground;
                 LvLogMessages.ApplyFilter(false);
             }
             else
@@ -110,11 +113,14 @@ namespace UPDLog
                 BtnFilter.Background = Brushes.Blue;
                 LvLogMessages.ApplyFilter(true);
             }
+
+            LvLogMessages.Focus();
         }
 
         private void AddMarkerClicked(object sender, RoutedEventArgs e)
         {
             LvLogMessages.AddLogMessage(new LogMessage());
+            LvLogMessages.Focus();
         }
 
         private void PreferencesClicked(object sender, RoutedEventArgs e)
@@ -163,38 +169,32 @@ namespace UPDLog
 
         private void SetupMessageQueueTimer()
         {
-            var messageQueuePumpTimeKey = Registry.GetValue(
-                @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\UdpLog",
-                "MessageQueueTimer",
-                500);
-
+            var messageQueuePumpTimeKey = _root.GetValue("MessageQueueTimer");
             if(messageQueuePumpTimeKey == null)
             {
-                var key = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Aventura\UdpLog");
-                key.SetValue("MessageQueueTimer", 500);
+                _root.SetValue("MessageQueueTimer", 500);
+                _messagePumpTimer = new System.Timers.Timer(500);
+            }
+            else
+            {
+                _messagePumpTimer = new System.Timers.Timer(Convert.ToInt32(messageQueuePumpTimeKey));
             }
 
-            _messagePumpTimer = new System.Timers.Timer(messageQueuePumpTimeKey == null ? 
-                500 : Convert.ToInt32(messageQueuePumpTimeKey));
             _messagePumpTimer.Elapsed += PumpMessageQueue;
         }
 
         private void SetupUdpListener()
         {
-            var listenPortKey = Registry.GetValue(
-                @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\UdpLog",
-                "ListenPort",
-                514);
-
+            var listenPortKey = _root.GetValue("ListenPort");
             if (listenPortKey == null)
             {
-                var key = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Aventura\UdpLog");
-                key.SetValue("ListenPort", 514);
+                _root.SetValue("ListenPort", 514);
+                _updListener = new UdpListener(514, ref _messageQueue);
             }
-
-            _updListener = new UdpListener(
-                listenPortKey == null ? 514 : Convert.ToInt32(listenPortKey), 
-                ref _messageQueue);
+            else
+            {
+                _updListener = new UdpListener(Convert.ToInt32(listenPortKey), ref _messageQueue);
+            }
         }
 
         private void LoadWindowConfig()

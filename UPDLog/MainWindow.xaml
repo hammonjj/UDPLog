@@ -19,7 +19,7 @@
                 </Menu>
             </DockPanel>
         </Grid>
-        <StackPanel>
+        <Grid>
             <Button 
                 Content="{StaticResource StartIcon}"
                 HorizontalAlignment="Left" 
@@ -29,48 +29,52 @@
                 Height="28" 
                 Click="ListenClicked" 
                 Name="BtnStart" />
+            
+            <Button 
+            	Content="{StaticResource PauseIcon}"
+            	HorizontalAlignment="Left" 
+            	Margin="10,64,0,0" 
+            	VerticalAlignment="Top" 
+            	Width="28" 
+            	Height="28" 
+            	Click="StopListeningClicked" 
+            	x:Name="BtnStop" />
 
-            <Button HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="StopListeningClicked" Name="BtnStop">
-                <Grid>
-                    <Image 
-                		Source="Icons\plus.png" 
-                		Width="28" Height="28"
-                		HorizontalAlignment="Center"
-                		VerticalAlignment="Center"/>
-                </Grid>
-            </Button>
-            <Button HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="28" Height="28"  Click="ClearLogClicked" Name="BtnClear">
-                <Grid>
-                    <Image 
-                		Source="Icons\plus.png" 
-                		Width="28" Height="28"
-                		HorizontalAlignment="Center"
-                		VerticalAlignment="Center"/>
-                </Grid>
-            </Button>
-            <Button HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="ApplyFilterClicked" Name="BtnFilter">
-                <Grid>
-                    <Image 
-                		Source="Icons\plus.png" 
-                		Width="28" Height="28"
-                		HorizontalAlignment="Center"
-                		VerticalAlignment="Center"/>
-                </Grid>
-            </Button>
-            <Button HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="28" Height="28" Click="AddMarkerClicked" Name="BtnMarker">
-                <Grid>
-                    <Image 
-                		Source="Icons\plus.png" 
-                		Width="28" Height="28"
-                		HorizontalAlignment="Center"
-                		VerticalAlignment="Center"/>
-                </Grid>
-            </Button>
-        </StackPanel>
+            <Button 
+                Content="{StaticResource CrossIcon}"
+                HorizontalAlignment="Left" 
+                Margin="10,97,0,0" 
+                VerticalAlignment="Top" 
+                Width="28" 
+                Height="28"  
+                Click="ClearLogClicked" 
+                Name="BtnClear"/>
+            
+            <Button 
+                Content="{StaticResource FilterIcon}"
+                HorizontalAlignment="Left" 
+                Margin="10,130,0,0" 
+                VerticalAlignment="Top" 
+                Width="28" 
+                Height="28" 
+                Click="ApplyFilterClicked" 
+                Name="BtnFilter"/>
+            
+            <Button 
+                Content="{StaticResource MarkerIcon}"
+                HorizontalAlignment="Left" 
+                Margin="10,163,0,0" 
+                VerticalAlignment="Top" 
+                Width="28" 
+                Height="28" 
+                Click="AddMarkerClicked" 
+                Name="BtnMarker"/>
+            
+        </Grid>
         <Grid>
             <Grid.Resources>
                 <Style TargetType="ListViewItem">
-                <!-- <Style TargetType="uiComponents:LogMessageView">-->
+                    <!-- Highlighting for Alternating Rows -->
                     <Style.Triggers>
                         <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
                             <Setter Property="Background" Value="LightBlue" />
@@ -78,6 +82,14 @@
                         <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
                             <Setter Property="Background" Value="LightGray" />
                         </Trigger>
+
+                        <!-- Highlighting for Errors and Warnings -->
+                        <DataTrigger Binding="{Binding Severity}" Value="Error">
+                            <Setter Property="Background" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Severity}" Value="Warning">
+                            <Setter Property="Background" Value="Yellow" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>

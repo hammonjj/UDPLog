@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Viewbox x:Key="CrossIcon" Stretch="Uniform">
+        <Canvas Name="svg3351" Width="64" Height="64">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <Path Name="path3355" StrokeThickness="2" Stroke="#FF4D4D4D">
+                <Path.Data>
+                    <PathGeometry Figures="M50.396 41.236l-8.466 8.466l-9.129-9.132l-9.105 9.132l-8.491-8.466  l9.131-9.132l-9.131-9.056l8.54-8.538l9.057 9.082l9.08-9.082l8.515 8.538l-9.129 9.056L50.396 41.236z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+            <Path Name="path3357" Fill="#FF4D4D4D">
+                <Path.Data>
+                    <PathGeometry Figures="M50.396 41.236l-8.466 8.466l-9.129-9.132l-9.105 9.132l-8.491-8.466l9.131-9.132l-9.131-9.056l8.54-8.538  l9.057 9.082l9.08-9.082l8.515 8.538l-9.129 9.056L50.396 41.236z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Viewbox>
+
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media;
 using Microsoft.Win32;
 using UPDLog.DataStructures;
 
@@ -75,6 +76,8 @@ namespace UPDLog.Windows
                 string.IsNullOrWhiteSpace(action))
             {
                 //Highlight empty fields in red
+                txtFilterContent.BorderBrush = Brushes.Red;
+                txtFilterContent.BorderThickness = new Thickness(2);
                 return;
             }
 

@@ -2,16 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 
                 <!-- Button Icons -->
-                <ResourceDictionary Source="Icons/start.xaml" />
-                <ResourceDictionary Source="Icons/pause.xaml" />
-                <ResourceDictionary Source="Icons/cross.xaml" />
-                <ResourceDictionary Source="Icons/filter.xaml" />
-                <ResourceDictionary Source="Icons/marker.xaml" />
+                <ResourceDictionary Source="Icons/StartIcon.xaml" />
+                <ResourceDictionary Source="Icons/PauseIcon.xaml" />
+                <ResourceDictionary Source="Icons/CrossIcon.xaml" />
+                <ResourceDictionary Source="Icons/FilterIcon.xaml" />
+                <ResourceDictionary Source="Icons/MarkerIcon.xaml" />
 
                 <!-- Log Message Severity Icons -->
                 <ResourceDictionary Source="Icons/error.xaml" />
