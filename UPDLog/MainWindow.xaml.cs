@@ -20,9 +20,6 @@ namespace UPDLog
     /// </summary>
     public partial class MainWindow
     {
-        //Temporary until the button styles are changed
-        private readonly Brush _defaultButtonBackground;
-
         private readonly RegistryKey _root;
         private Thread _udpListenerThread;
         private UdpListener _updListener;
@@ -33,19 +30,15 @@ namespace UPDLog
         {
             //Setup UI Components
             InitializeComponent();
-
+            
             //Load Config
-            _root = Registry.LocalMachine.GetOrCreateRegistryKey(
-                @"SOFTWARE\Wow6432Node\Aventura\UdpLog", true);
+            _root = Registry.CurrentUser.GetOrCreateRegistryKey(@"Software\Aventura\UdpLog", true);
 
             SetupUdpListener();
             SetupMessageQueueTimer();
 
             LoadWindowConfig();
             LvLogMessages.LoadConfig(_root);
-
-            //Temporary
-            _defaultButtonBackground = BtnFilter.Background;
         }
 
         private void PumpMessageQueue(object sender, ElapsedEventArgs e)
@@ -103,17 +96,10 @@ namespace UPDLog
 
         private void ApplyFilterClicked(object sender, RoutedEventArgs e)
         {
-            if (LvLogMessages.FilterEnabled())
-            {
-                BtnFilter.Background = _defaultButtonBackground;
-                LvLogMessages.ApplyFilter(false);
-            }
-            else
-            {
-                BtnFilter.Background = Brushes.Blue;
-                LvLogMessages.ApplyFilter(true);
-            }
-
+            //This is not the right way to do this, but I'll leave it for now as I have more pressing things to
+            //finish
+            LvLogMessages.ApplyFilter(!LvLogMessages.FilterEnabled());
+            BtnFilter.IsChecked = LvLogMessages.FilterEnabled();
             LvLogMessages.Focus();
         }
 
@@ -125,16 +111,11 @@ namespace UPDLog
 
         private void PreferencesClicked(object sender, RoutedEventArgs e)
         {
-#if false
-            window2 win2= new window2();
-            win2.Show();
-#endif
         }
 
         private void FilterConfigClicked(object sender, RoutedEventArgs e)
         {
-            var filterConfigKey = _root.GetOrCreateRegistryKey("Filters", true);
-            var filterConfig = new FilterConfig(filterConfigKey)
+            var filterConfig = new FilterConfig(_root)
             {
                 Owner = this
             };

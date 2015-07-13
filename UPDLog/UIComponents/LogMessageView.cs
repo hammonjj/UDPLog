@@ -19,19 +19,7 @@ namespace UPDLog.UIComponents
         private ScrollViewer _scrollViewer; 
         private readonly ContextMenu _contextMenu = new ContextMenu();
         private readonly LogFilterRule _logFilterRule = new LogFilterRule();
-#if false
-        static LogMessageView()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(LogMessageView), 
-                new FrameworkPropertyMetadata(typeof(LogMessageView)));
-        }
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new LogMessageViewItem();
-        }
-#endif
         public void LoadConfig(RegistryKey key)
         {
             _root = key;
@@ -105,9 +93,9 @@ namespace UPDLog.UIComponents
 
             //Load active filter in registry
             string activeFilter;
-            using (var activeFilterKey = _root.OpenSubKey("Filters"))
+            using (var activeFilterKey = _root.GetOrCreateRegistryKey("Filters", true))
             {
-                activeFilter = activeFilterKey.GetValue("ActiveFilter").ToString();    
+                activeFilter = activeFilterKey.GetValue("ActiveFilter", "").ToString();    
             }
 
             if (string.IsNullOrWhiteSpace(activeFilter)) { return; }
@@ -122,6 +110,7 @@ namespace UPDLog.UIComponents
                 _logFilterRule.Column = activeFilterKey.GetValue("FilterColumn", "").ToString();
                 _logFilterRule.Action = activeFilterKey.GetValue("FilterAction", "").ToString();
                 _logFilterRule.Content = activeFilterKey.GetValue("FilterContent", "").ToString();
+                _logFilterRule.Acceptance = Convert.ToBoolean(activeFilterKey.GetValue("Acceptance", "").ToString());
             }
 
             Items.Filter = ShowMessage;
@@ -137,25 +126,34 @@ namespace UPDLog.UIComponents
             if (propertyColumn.GetValue(lm, null) == null) { return true; }
 
             //Parse filter action text
+            var match = false;
             switch (_logFilterRule.Action)
             {
                 case "Like":
                     var likeRegex = new Regex(_logFilterRule.Content);
-                    return likeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
+                    match = likeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
+                    break;
                 case "Not Like":
                     var notLikeRegex = new Regex(_logFilterRule.Content);
-                    return !notLikeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
+                    match = !notLikeRegex.Match((string)propertyColumn.GetValue(lm, null)).Success;
+                    break;
                 case "Equal To":
-                    return (string)propertyColumn.GetValue(lm, null) == _logFilterRule.Content;
+                    match = (string)propertyColumn.GetValue(lm, null) == _logFilterRule.Content;
+                    break;
                 case "Not Equal To":
-                    return (string)propertyColumn.GetValue(lm, null) != _logFilterRule.Content;
+                    match = (string)propertyColumn.GetValue(lm, null) != _logFilterRule.Content;
+                    break;
                 case "Greater Than":
-                    return true;
+                    match = true;
+                    break;
                 case "Less Than":
-                    return true;
+                    match = true;
+                    break;
             }
 
-            return false;
+            if(match && _logFilterRule.Acceptance) { return true; }
+            if (match && !_logFilterRule.Acceptance) { return false; }
+            return true;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

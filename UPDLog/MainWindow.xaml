@@ -50,7 +50,7 @@
                 Click="ClearLogClicked" 
                 Name="BtnClear"/>
             
-            <Button 
+            <ToggleButton 
                 Content="{StaticResource FilterIcon}"
                 HorizontalAlignment="Left" 
                 Margin="10,130,0,0" 
@@ -85,7 +85,7 @@
 
                         <!-- Highlighting for Errors and Warnings -->
                         <DataTrigger Binding="{Binding Severity}" Value="Error">
-                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="Background" Value="IndianRed" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Severity}" Value="Warning">
                             <Setter Property="Background" Value="Yellow" />
@@ -93,7 +93,6 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>
-            <!-- ItemContainerStyle="{StaticResource ItemContStyle}"-->
             <uiComponents:LogMessageView 
                 Margin="50,25,10,10" 
                 x:Name="LvLogMessages" 
@@ -118,8 +117,3 @@
         </Grid>
     </Grid>
 </Window>
-    
-<!--
-http://stackoverflow.com/questions/2491941/wpf-tristate-image-button/3676177#3676177
-http://stackoverflow.com/questions/1261908/wpf-how-to-create-image-button-with-template
--->

@@ -61,7 +61,6 @@
     <Compile Include="DataStructures\LogMessage.cs" />
     <Compile Include="DataStructures\RawMessage.cs" />
     <Compile Include="UdpListener.cs" />
-    <Compile Include="UIComponents\LogMessageViewItem.cs" />
     <Compile Include="Utilities\RegistryExtensions.cs" />
     <Compile Include="Utilities\ListViewExtensions.cs" />
     <Compile Include="UIComponents\LogMessageView.cs" />
@@ -73,14 +72,6 @@
       <DependentUpon>Preferences.xaml</DependentUpon>
     </Compile>
     <Page Include="Icons\CrossIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Icons\error.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Icons\information.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -97,10 +88,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Icons\StartIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Icons\warning.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="Icons/MarkerIcon.xaml" />
 
                 <!-- Log Message Severity Icons -->
-                <ResourceDictionary Source="Icons/error.xaml" />
+                <!-- <ResourceDictionary Source="Icons/error.xaml" /> -->
             
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

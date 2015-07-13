@@ -1,8 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
+
 using Microsoft.Win32;
+
 using UPDLog.DataStructures;
+using UPDLog.Utilities;
 
 namespace UPDLog.Windows
 {
@@ -14,14 +17,26 @@ namespace UPDLog.Windows
         private readonly RegistryKey _root;
         public FilterConfig(RegistryKey root)
         {
-            _root = root;
+            _root = root.GetOrCreateRegistryKey("Filters", true); ;
             InitializeComponent();
             BuildFilterColumns();
             BuildFilterActions();
+            BuildAcceptanceFilter();
 
             //Load Active Filter
             var activeFilter = _root.GetValue("ActiveFilter", "").ToString();
             if (!string.IsNullOrWhiteSpace(activeFilter)) { LoadActiveFilter(activeFilter); }
+        }
+
+        private void BuildAcceptanceFilter()
+        {
+            var list = new ObservableCollection<string>
+            {
+                "True", //Accept
+                "False"  //Reject
+            };
+
+            CmbAcceptance.ItemsSource = list;
         }
 
         private void LoadActiveFilter(string activeFilter)
@@ -30,9 +45,10 @@ namespace UPDLog.Windows
             {
                 if (activeFilterKey == null) { return; }
 
-                cmbFilterCol.SelectedItem = activeFilterKey.GetValue("FilterColumn");
-                cmbFilterAction.SelectedItem = activeFilterKey.GetValue("FilterAction", "");
-                txtFilterContent.Text = activeFilterKey.GetValue("FilterContent", "").ToString();
+                CmbFilterCol.SelectedItem = activeFilterKey.GetValue("FilterColumn");
+                CmbFilterAction.SelectedItem = activeFilterKey.GetValue("FilterAction", "");
+                TxtFilterContent.Text = activeFilterKey.GetValue("FilterContent", "").ToString();
+                CmbAcceptance.SelectedItem = activeFilterKey.GetValue("Acceptance", "");
             }
         }
 
@@ -48,7 +64,7 @@ namespace UPDLog.Windows
                 //"Less Than" => Not yet implemented
             };
 
-            cmbFilterAction.ItemsSource = list;
+            CmbFilterAction.ItemsSource = list;
         }
 
         private void BuildFilterColumns()
@@ -60,24 +76,26 @@ namespace UPDLog.Windows
                 propertyList.Add(prop.Name);
             }
 
-            cmbFilterCol.ItemsSource = propertyList;
+            CmbFilterCol.ItemsSource = propertyList;
         }
 
         private void ApplyClicked(object sender, RoutedEventArgs e)
         {
             var filterName = "Default";
 
-            var content = txtFilterContent.Text;
-            var column = cmbFilterCol.SelectedItem.ToString();
-            var action = cmbFilterAction.SelectedItem.ToString();
+            var content = TxtFilterContent.Text;
+            var column = CmbFilterCol.SelectedItem.ToString();
+            var action = CmbFilterAction.SelectedItem.ToString();
+            var acceptance = CmbAcceptance.SelectedItem.ToString();
 
             if (string.IsNullOrWhiteSpace(column) ||
                 string.IsNullOrWhiteSpace(content) ||
-                string.IsNullOrWhiteSpace(action))
+                string.IsNullOrWhiteSpace(action) ||
+                string.IsNullOrWhiteSpace(acceptance))
             {
                 //Highlight empty fields in red
-                txtFilterContent.BorderBrush = Brushes.Red;
-                txtFilterContent.BorderThickness = new Thickness(2);
+                TxtFilterContent.BorderBrush = Brushes.Red;
+                TxtFilterContent.BorderThickness = new Thickness(2);
                 return;
             }
 
@@ -89,6 +107,7 @@ namespace UPDLog.Windows
                 filterSubKey.SetValue("FilterColumn", column);
                 filterSubKey.SetValue("FilterAction", action);
                 filterSubKey.SetValue("FilterContent", content);
+                filterSubKey.SetValue("Acceptance", acceptance);
             }
             else
             {
