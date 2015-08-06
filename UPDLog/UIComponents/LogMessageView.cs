@@ -8,8 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
 
-using UPDLog.DataStructures;
 using UPDLog.Utilities;
+using UPDLog.DataStructures;
 
 namespace UPDLog.UIComponents
 {

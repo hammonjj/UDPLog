@@ -1,7 +1,7 @@
 ﻿<Window x:Class="UPDLog.Windows.FilterConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Filter Config" Height="202.452" Width="401.923" Closing="WindowClosing" WindowStartupLocation="CenterOwner">
+        Title="Filter Config" Height="225.119" Width="401.923" Closing="WindowClosing" WindowStartupLocation="CenterOwner">
     
     <Grid RenderTransformOrigin="0.497,0.491" Margin="0,0,0,-3">
         <StackPanel Orientation="Horizontal" Margin="0,73,0,80">

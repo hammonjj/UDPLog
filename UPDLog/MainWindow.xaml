@@ -9,7 +9,7 @@
             <DockPanel>
                 <Menu DockPanel.Dock="Top">
                     <MenuItem Header="_File">
-                        <MenuItem Header="_Save" Click="SaveLogClicked"/>
+                        <MenuItem Header="_Save Log" Click="SaveLogClicked"/>
                         <MenuItem Header="_Exit" Click="ExitClicked"/>
                     </MenuItem>
                     <MenuItem Header="_Edit">

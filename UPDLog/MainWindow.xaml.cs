@@ -4,7 +4,6 @@ using System.Text;
 using System.Timers;
 using System.Windows;
 using System.Threading;
-using System.Windows.Media;
 using System.Collections.Concurrent;
 
 using Microsoft.Win32;
@@ -73,11 +72,22 @@ namespace UPDLog
 
         private void ListenClicked(object sender, RoutedEventArgs e)
         {
-            _udpListenerThread = new Thread(_updListener.BeginListening);
-            _udpListenerThread.Start();
-            _messagePumpTimer.Enabled = true;
-            BtnStart.IsEnabled = false;
-            LvLogMessages.Focus();
+            try
+            {
+                _udpListenerThread = new Thread(_updListener.Listen)
+                {
+                    IsBackground = true
+                };
+
+                _udpListenerThread.Start();
+                _messagePumpTimer.Enabled = true;
+                BtnStart.IsEnabled = false;
+                LvLogMessages.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception thrown when attempting to listen.  Message: " + ex.Message);
+            }
         }
 
         private void StopListeningClicked(object sender, RoutedEventArgs e)
@@ -166,15 +176,17 @@ namespace UPDLog
 
         private void SetupUdpListener()
         {
+            var messageFloodLimitKey = _root.GetValue("MessageFloodLimit");
             var listenPortKey = _root.GetValue("ListenPort");
-            if (listenPortKey == null)
+            if (listenPortKey == null || messageFloodLimitKey == null)
             {
                 _root.SetValue("ListenPort", 514);
-                _updListener = new UdpListener(514, ref _messageQueue);
+                _root.SetValue("MessageFloodLimit", 100);
+                _updListener = new UdpListener(514, 100, ref _messageQueue);
             }
             else
             {
-                _updListener = new UdpListener(Convert.ToInt32(listenPortKey), ref _messageQueue);
+                _updListener = new UdpListener(Convert.ToInt32(listenPortKey), Convert.ToInt32(messageFloodLimitKey), ref _messageQueue);
             }
         }
 
@@ -201,7 +213,6 @@ namespace UPDLog
 
             //Close Registry Handle
             _root.Close();
-            //_udpListenerThread.Join();
         }
     }
 }

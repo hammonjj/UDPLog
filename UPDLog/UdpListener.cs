@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
 using UPDLog.DataStructures;
@@ -8,38 +9,48 @@ namespace UPDLog
     public class UdpListener
     {
         private int _listenPort;
+        private int _messageFloodLimit;
         private volatile bool _listen;
         private readonly ConcurrentQueue<RawMessage> _messageQueue;
 
-        public UdpListener(int listenPort, ref ConcurrentQueue<RawMessage> messageQueue)
+        public UdpListener(int listenPort, int messageFloodLimit, ref ConcurrentQueue<RawMessage> messageQueue)
         {
             _listenPort = listenPort;
+            _messageFloodLimit = messageFloodLimit;
             _messageQueue = messageQueue;
         }
 
-        public void BeginListening()
+        public void Listen()
         {
-            _listen = true;
-
-            //Add try/catch if this port is already in use
-            var udpClient = new UdpClient(_listenPort);
-            var remoteEp = new IPEndPoint(IPAddress.Any, _listenPort);
-            while (_listen)
+            using (var udpClient = new UdpClient(_listenPort))
             {
-                var data = udpClient.Receive(ref remoteEp);
-                if(data.Length <= 0) { continue; }
-
-                var rawMessage = new RawMessage()
+                _listen = true;
+                var remoteEp = new IPEndPoint(IPAddress.Any, _listenPort);
+                while (_listen)
                 {
-                    Port = remoteEp.Port,
-                    IpAddress = remoteEp.Address,
-                    Message = System.Text.Encoding.UTF8.GetString(data)
-                };
+                    var data = udpClient.Receive(ref remoteEp);
+                    if (data.Length <= 0)
+                    {
+                        continue;
+                    }
 
-                _messageQueue.Enqueue(rawMessage);
+                    if (_messageQueue.Count > _messageFloodLimit) //Overflow
+                    {
+                        continue;
+                    }
+
+                    var rawMessage = new RawMessage()
+                    {
+                        Port = remoteEp.Port,
+                        IpAddress = remoteEp.Address,
+                        Message = System.Text.Encoding.UTF8.GetString(data)
+                    };
+
+                    _messageQueue.Enqueue(rawMessage);
+                }
+
+                udpClient.Close();
             }
-
-            udpClient.Close();
         }
 
         public void StopListening()
@@ -49,9 +60,7 @@ namespace UPDLog
 
         public void UpdateListeningPort(int port)
         {
-            //Stop listening if we are
             _listenPort = port;
-            //Start listening if we were
         }
     }
 }
